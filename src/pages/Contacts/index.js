@@ -32,21 +32,30 @@ const getMode = () => {
     return localStorage.getItem('mode') ||  DATA_MODE.TABLE;
 }
 
+// HERE ONLY FILTERS
 const filterDefVal = {
     fullName : '',
-    gender : '',
-    nationality : '',
+    gender : 'all',
+    nationality : 'all',
 }
+
 
 const filterByFullName = (name,fullName) => {
     return name.first.includes(fullName) 
         || name.last.toLowerCase().includes(fullName) 
 }
 const filterByGender = (userGender,gender) =>{
-    if(gender === ''){
+    if(gender === 'all'){
         return true;
     }
     return userGender === gender;
+}
+
+const filterByNationality = (userNat,filterNat) => {
+    if(filterNat === 'all'){
+        return true;
+    }
+    return filterNat === userNat;
 }
 
 export const Contacts = () => { 
@@ -82,6 +91,10 @@ export const Contacts = () => {
             [name] : value
         })
     }
+
+    const onFilterClear = () => {
+        setFilters(filterDefVal);
+    }
     
    
     if(isError){return <div>Error</div>}
@@ -89,7 +102,7 @@ export const Contacts = () => {
     const filteredData = contacts
     .filter((obj) => filterByFullName(obj.name,filters.fullName))
     .filter((obj) => filterByGender(obj.gender,filters.gender)) 
-    
+    .filter((obj) => filterByNationality(obj.nat,filters.nationality));
 
     return(
             <div className = {classes.root} >
@@ -109,6 +122,7 @@ export const Contacts = () => {
                     </Grid>
                     <Grid item xs = {12} mb={5}>
                         <ContactsFilter
+                        onFilterClear = {onFilterClear}
                         updateFilter = {updateFilter} 
                         filters = {filters}/>
                     </Grid>
