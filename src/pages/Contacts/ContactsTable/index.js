@@ -8,19 +8,13 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Avatar from '@mui/material/Avatar';
 import { Typography } from "@mui/material";
-import { makeStyles } from '@mui/styles';
 import { parseISO } from 'date-fns';
 import { CopyToClicpBoard } from '../../../components/CopyToClicpBoard';
 import { NATIONALITY_HUMAN_NAME } from '../../../constants/nationality';
 
-const useStyles = makeStyles({
-    table : {
-
-    }
-})
 
 export const ContactsTable = ({data}) => {
-    const classes = useStyles();
+  console.log("render ")
     return (
         <TableContainer component={Paper}>
         <Table sx={{ minWidth: 1200 }} aria-label="contacts table">
@@ -44,7 +38,7 @@ export const ContactsTable = ({data}) => {
                 <TableCell >
                     <Avatar src= {contact.picture.thumbnail} alt=""/>
                 </TableCell>
-                <TableCell >{contact.name.title} {contact.name.title} {contact.name.last} </TableCell>
+                <TableCell >{contact.name.title} {contact.name.first} {contact.name.last} </TableCell>
                 <TableCell >
                     <Typography>{format(parseISO(contact.dob.date),"MM/dd/yyyy")}</Typography>
                     <Typography>{contact.dob.age} years</Typography>
