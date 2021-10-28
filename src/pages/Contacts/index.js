@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react"
+import { useCallback, useEffect, useState } from "react"
 import Grid from '@mui/material/Grid';
 import { makeStyles } from '@mui/styles';
 import { CircularProgress, Typography } from "@mui/material";
@@ -7,6 +7,8 @@ import { Box } from "@mui/system";
 
 import { ToggleMode } from "./ToggleMode";
 import { ContactsFilter } from "./ContactsFilter";
+import { GridContacts } from "./GridContacts";
+import { Stastics } from "../../components/Stastics";
 
 
 
@@ -85,16 +87,16 @@ export const Contacts = () => {
         getData();
     },[]);
 
-    const updateFilter = (name,value) => {
+    const updateFilter = useCallback((name,value) => {
         setFilters({
             ...filters,
             [name] : value
         })
-    }
+    },[filters])
 
-    const onFilterClear = () => {
+    const onFilterClear = useCallback(() => {
         setFilters(filterDefVal);
-    }
+    },[]);
     
    
     if(isError){return <div>Error</div>}
@@ -131,10 +133,12 @@ export const Contacts = () => {
                             loading ?<CircularProgress />: 
                             mode === DATA_MODE.TABLE 
                             ? <ContactsTable data = {filteredData}/>
-                            : <div>GRID MODE</div>
+                            : <GridContacts data = {filteredData}/>
                         }
                         
                     </Grid>
+                    {/* STATISTICS OF DATA */}
+                    <Stastics data = {contacts}/>
                 </Grid>
             </div>
        

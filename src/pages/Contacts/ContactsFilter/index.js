@@ -7,6 +7,7 @@ import { Button, TextField } from "@mui/material";
 import { makeStyles } from '@mui/styles';
 import { NATIONALITY_HUMAN_NAME } from "../../../constants/nationality";
 import { Clear } from "@mui/icons-material";
+import { memo } from "react";
 
 
 const useStyles = makeStyles({
@@ -17,13 +18,12 @@ const useStyles = makeStyles({
         width : '500px'
     }
 
-})
+});
 
-export const ContactsFilter = ({ filters, updateFilter, onFilterClear }) => {
+export const ContactsFilter = memo(({ filters, updateFilter, onFilterClear }) => {
+    console.log("filters renders");
     const classes = useStyles();
-    const handleChangeFilter = (e) => {
-        updateFilter(e.target.name, e.target.value);
-    }
+    const handleChangeFilter = (e) => {updateFilter(e.target.name, e.target.value);}
     return (
         <Box display='flex' justifyContent='space-between'>
             <Box display='flex' >
@@ -85,4 +85,4 @@ export const ContactsFilter = ({ filters, updateFilter, onFilterClear }) => {
             </Button>
         </Box>
     )
-}
+})
