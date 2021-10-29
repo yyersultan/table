@@ -34,13 +34,13 @@ export const ContactsFilter = memo(({ filters, updateFilter, onFilterClear }) =>
                         label='FullName'
                         value={filters.fullName}
                         onChange={handleChangeFilter}
-                        variant='standard'
+                        variant='filled'
                         placeholder = 'Search by full Name'
                     />
                 </Box>
 
                 <Box mr = {5}>
-                <FormControl variant='standard' className={classes.FormControls}>
+                <FormControl variant='filled' className={classes.FormControls}>
                     <InputLabel id="gender">Gender</InputLabel>
                     <Select
                         name='gender'
@@ -55,7 +55,7 @@ export const ContactsFilter = memo(({ filters, updateFilter, onFilterClear }) =>
                     </Select>
                 </FormControl>
                 </Box>
-                <FormControl variant='standard' className={classes.FormControls}>
+                <FormControl variant='filled' className={classes.FormControls}>
                     <InputLabel id="nationality">Nationality</InputLabel>
                     <Select
                         name='nationality'

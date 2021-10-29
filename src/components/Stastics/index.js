@@ -18,12 +18,19 @@ const useStyles = makeStyles({
     natStastics : {
         marginTop : '10px',
         
+    },
+    natStatList : {
+        marginTop : '20px',
+        display : 'flex',
+        flexWrap : 'wrap',
+        
     }
     
 
 })
 
 export const Stastics = memo(({data}) => {
+    console.log("render statistics")
     const classes = useStyles();
     const nationalityList = data.map((el) => el.nat);
     const countNat = (natList) => {
@@ -59,30 +66,35 @@ export const Stastics = memo(({data}) => {
                 
                 <Typography color = {'darkgray'}>
                     Collection size 
-                    <h3>{data.length}</h3>
+                    <Typography>{data.length}</Typography>
                 </Typography>
 
                 <Typography ml ={3} mr = {3} color = {'darkgray'}>
                     Males 
-                    <h3>{getGender('male')}</h3>
+                    <Typography>{getGender('male')}</Typography>
                 </Typography>
 
                 <Typography color = {'darkgray'}>
                     Females
-                    <h3>{getGender('female')}</h3> 
+                    <Typography>{getGender('female')}</Typography> 
                 </Typography>
 
             </Box>
             <Box className = {classes.natStastics}>
                 <Typography component = 'span' color= 'deepPurple'>
                     Nationality
-                    <Box display='flex' mt={2} >
+                    <div className = {classes.natStatList}  mt={2} >
                         {
                            Object.keys(natObj).map((el,i) => {
-                               return <Typography color= 'indigo' ml = {i!==0 && 3}> <b>{NATIONALITY_HUMAN_NAME[el]}</b> : {natObj[el]} contacts </Typography>
+                               return <Typography 
+                                        key = {el + i} 
+                                        mb = {2}
+                                        color= 'indigo' ml = {i%10!==0 && 3}>
+                                        <b>{NATIONALITY_HUMAN_NAME[el]}</b> :
+                                        {natObj[el]} contacts </Typography>
                            }) 
                         }
-                    </Box>
+                    </div>
                 </Typography>
             </Box>
         </Paper>

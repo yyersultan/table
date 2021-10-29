@@ -15,6 +15,7 @@ import { Box } from '@mui/system';
 // import ArrowDropUpIcon from '@mui/icons-material/ArrowDropUp';
 import { Typography } from '@mui/material';
 import { useState } from 'react';
+import {  ArrowDropDown, ArrowDropUp } from '@mui/icons-material';
 
 const commonStyles = {
   bgcolor: 'background.paper',
@@ -26,24 +27,27 @@ const commonStyles = {
 
 export const ContactsTable = ({data}) => {
   const[sortState,setSortState] = useState(0);
-
+  const [currData,setCurrData] = useState([...data]);
   const onSort = () => {
     
     switch(sortState){
       case 0:
-        data.sort((a,b) => a.name.first.localeCompare(b.name.first));
+        setCurrData(currData.sort((a,b) => a.name.first.localeCompare(b.name.first)));
         setSortState(prev => prev + 1);
         break;
       case 1:
-        data.sort((a,b) => b.name.first.localeCompare(a.name.first));
+        setCurrData(currData.sort((a,b) => b.name.first.localeCompare(a.name.first)));
         setSortState(prev => prev + 1);
         break;
       case 2:
+        
+        setCurrData(data);  
         setSortState(0);
         break;
+
       default :return null;
     }
-    console.log(data);
+   
   }
 
   
@@ -54,9 +58,12 @@ export const ContactsTable = ({data}) => {
           <TableHead>
             <TableRow>
               <TableCell>Avatar</TableCell>
-              <TableCell onClick = {onSort}>
+              <TableCell sx={{cursor:'pointer',display:'flex',alignItems:'center'}} onClick = {onSort}>
                 Full Name 
-                
+                <div style = {{display :'flex',flexDirection:'column'}}>
+                  <ArrowDropUp color={sortState === 1 ? 'primary':''}/>
+                  <ArrowDropDown  color={sortState === 2 ? 'primary':''}/>
+                </div>
               </TableCell>
               <TableCell >BirhDay</TableCell>
               <TableCell >Email</TableCell>
@@ -66,7 +73,7 @@ export const ContactsTable = ({data}) => {
             </TableRow>
           </TableHead>
           <TableBody>
-            {data.map((contact) => {
+            {currData.map((contact) => {
               const natColor = NATIONAL_COLOR[contact.nat];
               
               return(
@@ -94,7 +101,7 @@ export const ContactsTable = ({data}) => {
                     
                   </TableCell>
                   <TableCell >
-                    <Box sx={{ ...commonStyles, borderColor : natColor,color : natColor,background : `1C${natColor}`, }}>
+                    <Box sx={{ ...commonStyles, borderColor : natColor,color : natColor,background : `2C${natColor}`, }}>
                     { NATIONALITY_HUMAN_NAME[contact.nat] }
                     </Box>
                   </TableCell>

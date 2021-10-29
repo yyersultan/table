@@ -33,7 +33,7 @@ export const User = ({user}) => {
     const classes = useStyles();
     const countryColor = NATIONAL_COLOR[user.nat];
     const rgbArr = converToRgb(countryColor.slice(1));
-    console.log(rgbArr);
+
     const natStyle = {
         border : `1px solid ${countryColor}`,
         padding : 3,
